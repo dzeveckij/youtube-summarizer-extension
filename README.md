@@ -8,7 +8,7 @@ This browser extension adds a button to **YouTube** pages (both desktop and mobi
 - When clicked, stores a prompt (`Please summarize this YouTube page: [URL]`) for the Gemini page.
 - Opens `https://gemini.google.com/app` in a new tab.
 - Attempts to auto-fill the prompt into Gemini's input field.
-- If auto-fill fails, copies the prompt to the clipboard as a fallback and alerts the user.
+- If auto-fill fails, alerts the user to manually copy and paste the prompt.
 
 ## Installation
 
@@ -35,7 +35,7 @@ This browser extension adds a button to **YouTube** pages (both desktop and mobi
 4.  A new tab will open to `https://gemini.google.com/app`.
 5.  The extension will attempt to automatically paste a prompt like "Please summarize this YouTube page: [URL_OF_THE_VIDEO]" into Gemini's input field.
 6.  If auto-fill is successful, you can add to the prompt or send it to Gemini.
-7.  If auto-fill fails (e.g., due to changes in Gemini's page structure or if you navigate away too quickly), the extension will copy the prompt to your clipboard and show an alert: "Gemini auto-fill failed or was interrupted. The prompt has been copied to your clipboard. Please paste it manually." You can then manually paste the prompt into Gemini.
+7.  If auto-fill fails (e.g., due to changes in Gemini's page structure or if you navigate away too quickly), the extension will show an alert asking you to manually copy the prompt from the previous YouTube page (or re-click the summarize button) and paste it into Gemini. The alert message will be similar to: "Gemini auto-fill failed. Please paste the YouTube video URL manually."
 8.  You can manage extension options (like enabling verbose logging for development) by clicking the extension icon in your browser's toolbar and selecting "Options" (if available), or by finding the extension in your browser's extension management page and accessing its options from there.
 
 ## Building the Extension
@@ -75,12 +75,12 @@ This extension is built using Manifest V3.
 
 -   `manifest.json`: Extension configuration, permissions, content script declarations, and browser-specific settings.
 -   `content.js`: Injects the "Summarize with Gemini" button onto YouTube pages and handles the initial click interaction (opening Gemini and storing the URL).
--   `gemini_filler.js`: Runs on `gemini.google.com/app` to attempt to fill the prompt (containing the YouTube URL) from `chrome.storage.sync`.
+-   `gemini_filler.js`: Runs on `gemini.google.com/app` to attempt to fill the prompt (containing the YouTube URL) from `chrome.storage.local`.
 -   `logging.js`: Provides shared logging utilities (`devLog`, `devWarn`, `devError`) for content scripts, controllable via a setting in `options.html`.
 -   `options.html` & `options.js`: Provide an options page for the extension (e.g., to enable verbose logging).
 -   `style.css`: Styles for the injected button and other UI elements.
 -   `images/`: Contains the extension icons (icon16.png, icon48.png, icon128.png).
--   `scripts/`: Contains build-related helper scripts (e.g., `process-manifest.js`).
+
 -   `tests/`: Contains integration tests.
     -   `tests/integration/youtube_gemini_flow.spec.js`: Main integration test script using Playwright.
     -   **Note**: The integration tests rely on CSS selectors within `content.js` (for YouTube button placement) and `gemini_filler.js` (for the Gemini input field). These selectors might need updates if YouTube or Gemini changes their page structure.
@@ -116,11 +116,11 @@ Make sure you have run `npm install` to install Playwright and other testing dep
 
 ## Key Technical Points & Challenges
 
--   **Dynamic Content on YouTube & Gemini**: Both sites are Single Page Applications (SPAs). Button injection and prompt filling rely on `MutationObserver` and careful timing/selector choice.
+-   **Dynamic Content on YouTube & Gemini**: Both sites are Single Page Applications (SPAs). Button injection and prompt filling rely on DOM event listeners (like `yt-navigate-finish`, `load`), polling mechanisms (`setInterval`), careful timing, and robust CSS selector choice.
 -   **Selector Stability**: CSS selectors for YouTube and Gemini elements can change, potentially requiring updates to `content.js` and `gemini_filler.js`.
 -   **Manifest V3 Service Workers**: While this extension currently does not use a service worker for background tasks (the Gemini tab is opened directly from the content script), future background processing would need to adhere to the Manifest V3 service worker lifecycle.
--   **Playwright with Manifest V3 Extensions**: Testing Manifest V3 extensions, especially those with service workers or specific launch requirements, using Playwright in headless mode requires careful configuration. The `playwright.config.js` and test setup demonstrate a working approach using arguments like `--disable-extensions-except`, `--load-extension`, and `--headless=chromium`. (See memory: 536307d5-41f2-42c7-92a8-3569a310f852 for details on the Playwright configuration).
--   **Cross-Browser Compatibility (`storage.sync` and IDs)**: Ensuring features like `storage.sync` work consistently and that the extension is correctly identified by Firefox requires using `browser_specific_settings.gecko.id` in `manifest.json`.
+-   **Playwright with Manifest V3 Extensions**: Testing Manifest V3 extensions, especially those with specific launch requirements (like loading unpacked extensions), using Playwright in headless mode requires careful configuration. The `playwright.config.js` and test setup demonstrate a working approach using arguments like `--disable-extensions-except`, `--load-extension`, and `--headless=chromium`. (See memory: 536307d5-41f2-42c7-92a8-3569a310f852 for details on the Playwright configuration).
+-   **Cross-Browser Compatibility (Storage and IDs)**: Ensuring consistent behavior for data storage (`chrome.storage.local` for prompts, `chrome.storage.sync` for options) and that the extension is correctly identified by Firefox requires using `browser_specific_settings.gecko.id` in `manifest.json`.
 
 ## Planned Features / Improvements
 
