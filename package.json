@@ -1,0 +1,50 @@
+{
+  "name": "youtube-summarizer-extension",
+  "version": "0.0.1",
+  "description": "Browser extension to summarize YouTube videos using Google's Gemini AI. Adds a button to YouTube pages that opens Gemini with the video URL for instant summaries.",
+  "main": "",
+  "scripts": {
+    "test": "playwright test tests/integration/youtube_gemini_flow.spec.js",
+    "test:quick": "playwright test tests/integration/youtube_button_test.spec.js",
+    "test:headed": "playwright test --headed",
+    "codegen": "playwright codegen",
+    "build": "npm run build:chrome && npm run build:firefox",
+    "build:chrome": "rimraf dist/chrome && mkdirp dist/chrome && npm run copy-files:chrome",
+    "build:firefox": "rimraf dist/firefox && mkdirp dist/firefox && npm run copy-files:firefox",
+    "copy-files:chrome": "copyfiles manifest.json content.js gemini_filler.js logging.js options.html options.js style.css images/* dist/chrome/",
+    "copy-files:firefox": "copyfiles manifest.json content.js gemini_filler.js logging.js options.html options.js style.css images/* dist/firefox/",
+    "package": "npm run build && npm run zip",
+    "zip": "npm run zip:chrome && npm run zip:firefox",
+    "zip:chrome": "cd dist/chrome && bestzip ../chrome.zip *",
+    "zip:firefox": "cd dist/firefox && bestzip ../firefox.zip *"
+  },
+  "keywords": [
+    "youtube",
+    "gemini",
+    "summarizer",
+    "browser-extension",
+    "playwright",
+    "ai",
+    "google-ai"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/youtube-summarizer-extension"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/youtube-summarizer-extension/issues"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "playwright": "^1.40.0",
+    "bestzip": "^2.2.1",
+    "copyfiles": "^2.4.1",
+    "mkdirp": "^3.0.1",
+    "rimraf": "^5.0.5"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
