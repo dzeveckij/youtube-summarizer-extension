@@ -13,12 +13,12 @@
     "tabs"
   ],
   "host_permissions": [
-    "*://*.youtube.com/*",
+    "https://*.youtube.com/*",
     "https://gemini.google.com/app*"
   ],
   "content_scripts": [
     {
-      "matches": ["*://*.youtube.com/*"],
+      "matches": ["https://*.youtube.com/*"],
       "js": ["logging.js", "content.js"],
       "css": ["style.css"],
       "run_at": "document_idle"
