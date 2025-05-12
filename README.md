@@ -146,7 +146,7 @@ Make sure you have run `npm install` to install Playwright and other testing dep
 -   **Selector Stability**: CSS selectors for YouTube and Gemini elements can change, potentially requiring updates to `content.js` and `gemini_filler.js`.
 -   **Manifest V3 Service Workers**: While this extension currently does not use a service worker for background tasks (the Gemini tab is opened directly from the content script), future background processing would need to adhere to the Manifest V3 service worker lifecycle.
 -   **Playwright with Manifest V3 Extensions**: Testing Manifest V3 extensions, especially those with specific launch requirements (like loading unpacked extensions), using Playwright in headless mode requires careful configuration. The `playwright.config.js` and test setup demonstrate a working approach using arguments like `--disable-extensions-except`, `--load-extension`, and `--headless=chromium`. (See memory: 536307d5-41f2-42c7-92a8-3569a310f852 for details on the Playwright configuration).
--   **Cross-Browser Compatibility (Storage and IDs)**: Ensuring consistent behavior for data storage (`chrome.storage.local` for prompts, `chrome.storage.sync` for options) and that the extension is correctly identified by Firefox requires using `browser_specific_settings.gecko.id` in `manifest.json`.
+-   **Cross-Browser Compatibility (Storage and IDs)**: Ensuring consistent behavior for data storage (`chrome.storage.local` for prompts and options) and that the extension is correctly identified by Firefox requires using `browser_specific_settings.gecko.id` in `manifest.json`.
 
 ## Planned Features / Improvements
 

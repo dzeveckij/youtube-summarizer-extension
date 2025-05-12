@@ -15,7 +15,7 @@ The Extension processes the following information:
 ## 2. How We Use Information
 
 *   **To Enable Summarization:** The YouTube video URL is used solely to create the prompt. This prompt is then temporarily stored in your browser's local storage (`chrome.storage.local`). When you are redirected to `gemini.google.com`, a script attempts to automatically fill this prompt into the Gemini input field.
-*   **To Store Your Preferences:** The "Enable Verbose Console Logging" setting is stored in your browser's synchronized storage (`chrome.storage.sync`) to control the level of diagnostic messages printed to the browser's developer console.
+*   **To Store Your Preferences:** The "Enable Verbose Console Logging" setting is stored in your browser's local storage (`chrome.storage.local`) to control the level of diagnostic messages printed to the browser's developer console.
 
 ## 3. Data Sharing and Third Parties
 
@@ -25,13 +25,13 @@ The Extension processes the following information:
 ## 4. Data Storage and Retention
 
 *   **Temporary Prompt Storage:** The generated prompt containing the YouTube URL is stored in your browser's local extension storage (`chrome.storage.local`) only for the brief period between clicking the "Summarize" button and the successful attempt to fill it into the Gemini website. The Extension attempts to delete this prompt from local storage immediately after it has been used.
-*   **Extension Settings Storage:** The "verboseLogging" preference is stored in `chrome.storage.sync` and persists until you change it, clear your browser's synchronized storage, or uninstall the Extension.
-*   **No External Storage:** No data is stored outside of your browser's local or synchronized extension storage.
+*   **Extension Settings Storage:** The "verboseLogging" preference is stored in `chrome.storage.local` and persists until you change it, clear your browser's local storage, or uninstall the Extension.
+*   **No External Storage:** No data is stored outside of your browser's local extension storage.
 
 ## 5. Your Choices and Rights
 
 *   You can control the "verboseLogging" setting through the Extension's options page.
-*   You can clear your browser's local storage and synchronized storage, which would remove any data stored by this Extension, through your browser's settings.
+*   You can clear your browser's local storage, which would remove any data stored by this Extension, through your browser's settings.
 *   You can uninstall the Extension at any time to remove it and its stored data completely.
 
 ## 6. Security
