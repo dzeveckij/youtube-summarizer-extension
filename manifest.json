@@ -14,12 +14,11 @@
   ],
   "host_permissions": [
     "*://*.youtube.com/*",
-    "*://m.youtube.com/*",
-    "*://gemini.google.com/*"
+    "https://gemini.google.com/app*"
   ],
   "content_scripts": [
     {
-      "matches": ["*://*.youtube.com/*", "*://m.youtube.com/*"],
+      "matches": ["*://*.youtube.com/*"],
       "js": ["logging.js", "content.js"],
       "css": ["style.css"],
       "run_at": "document_idle"
@@ -40,6 +39,9 @@
   "options_ui": {
     "page": "options.html",
     "open_in_tab": true
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self';"
   },
   "author": "Brian Hare",
   "homepage_url": "https://github.com/bhare1985/youtube-summarizer-extension",
