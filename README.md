@@ -8,7 +8,7 @@ This browser extension adds a button to **YouTube** pages (both desktop and mobi
 - When clicked, stores a prompt (`Please summarize this YouTube page: [URL]`) for the Gemini page.
 - Opens `https://gemini.google.com/app` in a new tab.
 - Attempts to auto-fill the prompt into Gemini's input field.
-- If auto-fill fails, alerts the user to manually copy and paste the prompt.
+- If auto-fill fails, alerts the user to return to YouTube and try again.
 
 ## Security and Best Practices
 
@@ -51,7 +51,7 @@ For further details regarding data handling, please refer to the [Privacy Policy
 4.  A new tab will open to `https://gemini.google.com/app`.
 5.  The extension will attempt to automatically paste a prompt like "Please summarize this YouTube page: [URL_OF_THE_VIDEO]" into Gemini's input field.
 6.  If auto-fill is successful, you can add to the prompt or send it to Gemini.
-7.  If auto-fill fails (e.g., due to changes in Gemini's page structure or if you navigate away too quickly), the extension will show an alert asking you to manually copy the prompt from the previous YouTube page (or re-click the summarize button) and paste it into Gemini. The alert message will be similar to: "Gemini auto-fill failed. Please paste the YouTube video URL manually."
+7.  If auto-fill fails (e.g., due to changes in Gemini's page structure or if you navigate away too quickly), the extension will show an alert asking you to return to YouTube and click the summarize button again. The alert message will be similar to: "Gemini Summarizer: Could not automatically fill the prompt. Please return to YouTube and click the summarize button again."
 8.  You can manage extension options (like enabling verbose logging for development) by clicking the extension icon in your browser's toolbar and selecting "Options" (if available), or by finding the extension in your browser's extension management page and accessing its options from there.
 
 ## Building the Extension
