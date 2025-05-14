@@ -116,11 +116,11 @@
             await clearPromptFromStorage();
           }, 500);
         } else {
-          alert("Gemini Summarizer: Could not automatically fill the prompt. Please paste the YouTube video URL manually into Gemini.");
+          alert("Gemini Summarizer: Could not automatically fill the prompt. Please return to YouTube and click the summarize button again.");
           await clearPromptFromStorage();
         }
       } else {
-        alert("Gemini Summarizer: Could not find the prompt input field on the Gemini page. Please paste the YouTube video URL manually.");
+        alert("Gemini Summarizer: Could not find the prompt input field on the Gemini page. Please return to YouTube and click the summarize button again.");
         await clearPromptFromStorage();
       }
     } else {

@@ -14,12 +14,12 @@
    */
   function initVerboseLogging() {
     try {
-      chrome.storage.sync.get({ verboseLogging: false }, (items) => {
+      chrome.storage.local.get({ verboseLogging: false }, (items) => {
         verboseLoggingEnabled = items.verboseLogging;
       });
 
       chrome.storage.onChanged.addListener((changes, namespace) => {
-        if (namespace === 'sync' && changes.verboseLogging) {
+        if (namespace === 'local' && changes.verboseLogging) {
           verboseLoggingEnabled = changes.verboseLogging.newValue;
         }
       });

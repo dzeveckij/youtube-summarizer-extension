@@ -8,8 +8,8 @@
 
   const SCRIPT_PREFIX = "Gemini Summarizer (YouTube Content):";
   const BUTTON_ID = "gemini-summarize-youtube-page-button";
-  const BUTTON_TEXT = " Summarize with Gemini";
-  const BUTTON_TEXT_OPENING = " Opening Gemini...";
+  const BUTTON_TEXT = "✨ Summarize with Gemini";
+  const BUTTON_TEXT_OPENING = "✨ Opening Gemini...";
   const GEMINI_URL = "https://gemini.google.com/app";
   const STORAGE_KEY_PROMPT = "geminiPromptForNextLoad";
   const YOUTUBE_INJECTION_POINT_SELECTORS = ['ytd-watch-metadata #title'];
