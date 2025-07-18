@@ -7,8 +7,10 @@ This browser extension adds a button to **YouTube** pages (both desktop and mobi
 - Adds a "✨ Summarize with Gemini" button to YouTube pages (`youtube.com` and `m.youtube.com`).
 - When clicked, stores a prompt (`Please summarize this YouTube page: [URL]`) for the Gemini page.
 - Opens `https://gemini.google.com/app` in a new tab.
-- Attempts to auto-fill the prompt into Gemini's input field.
-- If auto-fill fails, alerts the user to return to YouTube and try again.
+- Automatically fills the prompt into Gemini's input field when it becomes available.
+- Handles cases where the input field is disabled on initial page load.
+- Prevents duplicate form submissions.
+- Provides detailed logging for troubleshooting.
 
 ## Security and Best Practices
 
@@ -136,6 +138,19 @@ Make sure you have run `npm install` to install Playwright and other testing dep
 -   **Selector Stability**: CSS selectors for YouTube and Gemini elements can change, potentially requiring updates to `content.js` and `gemini_filler.js`.
 -   **Playwright with Manifest V3 Extensions**: Testing Manifest V3 extensions, especially those with specific launch requirements (like loading unpacked extensions), using Playwright in headless mode requires careful configuration. The `playwright.config.js` and test setup demonstrate a working approach using arguments like `--disable-extensions-except`, `--load-extension`, and `--headless=chromium`.
 *   **Cross-Browser Considerations (Firefox ID)**: Core storage APIs (`chrome.storage.local`) are generally consistent across browsers thanks to the WebExtensions standard. However, for proper identification and functionality on Firefox (e.g., updates via AMO), the Firefox-specific `browser_specific_settings.gecko.id` must be defined in `manifest.json`.
+
+## Version History
+
+### v0.0.3
+- Improved input field detection and handling
+- Added MutationObserver to detect when the input field becomes enabled
+- Added protection against duplicate form submissions
+- Enhanced error handling and logging
+- Improved reliability when the Gemini interface is slow to load
+- Added visual feedback during form submission
+
+### v0.0.2
+- Initial release with basic functionality
 
 ## Planned Features / Improvements
 
