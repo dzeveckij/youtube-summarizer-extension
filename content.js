@@ -47,7 +47,36 @@
     this.disabled = true;
 
     try {
-      const promptText = `Please summarize this YouTube page: ${window.location.href}`;
+      const promptText = `Please analyze the following YouTube video and provide a systematic summary in English.
+
+## 📝 TLDR (3-Line Summary)
+1. First key point
+2. Second key point
+3. Third key point
+
+## 🔍 Detailed Analysis
+### Main Arguments
+- Key claims and arguments presented in the video
+
+### Evidence and Examples
+- Analysis of evidence, data, and examples provided
+
+### Background Context
+- Background and socio-temporal context of the topic
+
+### Opinions and Perspectives
+- Evaluation of the presenter's viewpoint, bias, and objectivity
+
+## 💡 Key Insights
+- Main lessons and implications from the video
+- Practical applications and relevance
+
+## 🤔 Critical Review
+- Review of logical consistency
+- Missing perspectives or limitations
+- Alternative opinions or different viewpoints
+
+Video URL: ${window.location.href}`;
       await (typeof browser !== "undefined" ? browser : chrome).storage.local.set({ [STORAGE_KEY_PROMPT]: promptText });
       devLog(SCRIPT_PREFIX, "Prompt saved to storage");
       window.open(GEMINI_URL, "_blank");
