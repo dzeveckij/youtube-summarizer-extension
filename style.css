@@ -1,5 +1,13 @@
 /* style.css - For Gemini Page Summarizer Extension */
 
+.gemini-summarizer-button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 8px;
+  margin: 8px 0;
+}
+
 .gemini-summarizer-button {
   background-color: #4285F4; /* Google Blue */
   color: white;
@@ -12,13 +20,11 @@
   line-height: normal; /* Ensure consistent line height */
   box-shadow: 0 1px 2px 0 rgba(60,64,67,0.302), 0 1px 3px 1px rgba(60,64,67,0.149); /* Subtle shadow */
   transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
 
-  /* --- MODIFICATIONS for right-most positioning --- */
-  display: block;         /* Make it a block-level element */
-  width: -moz-fit-content;/* For Firefox */
-  width: fit-content;     /* Make block only as wide as its content */
-  margin: 8px 0 8px auto; /* Top, Right, Bottom, Left (auto pushes it right) */
-  /* vertical-align and flex-shrink are no longer needed for this strategy */
+.gemini-summarizer-button.gemini-summarizer-button-custom {
+  background-color: #f1f3f4; /* Google Grey */
+  color: #3c4043;
 }
 
 .gemini-summarizer-button:hover {
@@ -26,8 +32,16 @@
   box-shadow: 0 1px 3px 0 rgba(60,64,67,0.302), 0 2px 5px 2px rgba(60,64,67,0.149);
 }
 
+.gemini-summarizer-button.gemini-summarizer-button-custom:hover {
+  background-color: #e8eaed; /* Darker Google Grey */
+}
+
 .gemini-summarizer-button:active {
   background-color: #2A56C6; /* Even darker for active state */
+}
+
+.gemini-summarizer-button.gemini-summarizer-button-custom:active {
+  background-color: #dadce0;
 }
 
 .gemini-summarizer-button:disabled,
@@ -36,4 +50,199 @@
   color: #E0E0E0;
   cursor: not-allowed;
   box-shadow: none;
+}
+
+/* --- NEW STYLES for Custom Prompt Modal --- */
+.gemini-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  font-family: 'Roboto', Arial, sans-serif;
+}
+
+.gemini-modal-content {
+  background-color: #fff;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  width: 90%;
+  max-width: 500px;
+  box-sizing: border-box;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.gemini-modal-header {
+  margin: 0 0 16px 0;
+  font-size: 18px;
+  font-weight: 500;
+  color: #202124;
+}
+
+.gemini-modal-textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #dadce0;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+  resize: vertical;
+  min-height: 80px;
+  margin-bottom: 16px;
+}
+
+.gemini-modal-textarea:focus {
+  outline: none;
+  border-color: #4285F4;
+}
+
+.gemini-modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.gemini-modal-button {
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.gemini-modal-button-submit {
+  background-color: #4285F4;
+  color: white;
+}
+
+.gemini-modal-button-submit:hover {
+  background-color: #3367D6;
+}
+
+.gemini-modal-button-submit:disabled {
+  background-color: #A0A0A0;
+  cursor: not-allowed;
+}
+
+.gemini-modal-button-cancel {
+  background-color: #f1f3f4;
+  color: #3c4043;
+}
+
+.gemini-modal-button-cancel:hover {
+  background-color: #e8eaed;
+}
+
+/* --- Saved Prompts List Styles --- */
+.gemini-modal-saved-prompts-container {
+  overflow-y: auto;
+  border-top: 1px solid #e0e0e0;
+  padding-top: 12px;
+}
+
+.gemini-modal-saved-prompts-header {
+  font-size: 14px;
+  color: #5f6368;
+  margin: 0 0 8px 0;
+  font-weight: 500;
+}
+
+.gemini-modal-saved-prompts-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 200px; /* Limit height and allow scrolling */
+  overflow-y: auto;
+}
+
+.gemini-modal-saved-prompt-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  gap: 8px;
+}
+
+.gemini-modal-saved-prompt-item:not(:last-child) {
+  border-bottom: 1px solid #f1f3f4;
+}
+
+.gemini-modal-saved-prompt-text {
+  flex-grow: 1;
+  cursor: pointer;
+  font-size: 13px;
+  color: #3c4043;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 4px;
+}
+
+.gemini-modal-saved-prompt-item:hover {
+  background-color: #f1f3f4;
+}
+
+.gemini-modal-prompt-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.gemini-modal-send-prompt-btn,
+.gemini-modal-delete-prompt-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.gemini-modal-send-prompt-btn svg,
+.gemini-modal-delete-prompt-btn svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.gemini-modal-send-prompt-btn {
+  color: #1a73e8; /* Google Blue */
+}
+.gemini-modal-send-prompt-btn:hover {
+    background-color: #e8f0fe;
+}
+.gemini-modal-send-prompt-btn:disabled {
+  color: #9aa0a6;
+  cursor: not-allowed;
+  background-color: transparent;
+}
+
+
+.gemini-modal-delete-prompt-btn {
+  color: #5f6368;
+}
+
+.gemini-modal-delete-prompt-btn:hover {
+  background-color: #fce8e6;
+  color: #d93025;
 }
